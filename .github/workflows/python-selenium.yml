@@ -37,9 +37,11 @@ jobs:
     - name: Install ChromeDriver
       run: |
         sudo apt update
-        sudo apt install -y google-chrome-stable
+        sudo apt install -y chromium-chromedriver
 
     - name: Run pytest with Allure results
+      env:
+        PYTHONPATH: ${{ github.workspace }}
       run: |
         pytest --alluredir=allure-results
 
@@ -58,9 +60,3 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./allure-report
-
-    - name: Run tests with PYTHONPATH
-      env:
-          PYTHONPATH: ${{ github.workspace }}
-      run: |
-          pytest --alluredir=allure-results
