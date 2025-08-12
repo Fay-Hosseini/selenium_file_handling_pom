@@ -58,3 +58,9 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./allure-report
+
+    - name: Run tests with PYTHONPATH
+      env:
+          PYTHONPATH: ${{ github.workspace }}
+      run: |
+          pytest --alluredir=allure-results
